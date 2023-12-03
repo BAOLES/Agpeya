@@ -4,7 +4,14 @@
   <script src="script3.js" defer></script>
   <script src="script4.js" defer></script>
   <script src="scriptdayex.js" defer></script>
-
+<style>
+  .Home img {
+    max-width: 40px; /* Adjust the maximum width as needed */
+    max-height: 40px; /* Adjust the maximum height as needed */
+    position:relative;
+    margin: 1cqh;
+  }
+</style>
     <div id="dayCell"></div>
     <div class="sub-container">       
       <a>Morning Prayer</a>
@@ -24,7 +31,11 @@
     </div>
     <button onclick="selectAndCopy()">Select and Copy HTML</button>
   </div>
-  <a href="index.html" class="Home" data-increment="25"> Home</a>
+  <br>
+  <a href="index.html" class="Home" >
+    <img src="amsm.png" alt="Home">
+  </a>
+</br>
 <script>
   function updatePrayers() {
     // Get the current date

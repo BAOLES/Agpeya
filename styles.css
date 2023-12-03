@@ -553,3 +553,15 @@ body {
   font-size: 14px;
   color: #333; /* Set your desired text color */
 }
+.Home img {
+  max-width: 40px; /* Adjust the maximum width as needed */
+  max-height: 40px; /* Adjust the maximum height as needed */
+  position:relative;
+  margin: 1cqh;
+}
+
+.mainHome img {
+  max-width: 60px; /* Adjust the maximum width as needed */
+  max-height: 60px; /* Adjust the maximum height as needed */
+  position:center;
+}

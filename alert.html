@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, textarea {
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Set Notification</h2>
+
+  <label for="notificationTime">Notification Time:</label>
+  <input type="time" id="notificationTime" required>
+
+  <label for="notificationMessage">Notification Message:</label>
+  <textarea id="notificationMessage" rows="4" required></textarea>
+
+  <button onclick="scheduleNotification()">Set Notification</button>
+
+  <script>
+    function scheduleNotification() {
+      var notificationTime = document.getElementById('notificationTime').value;
+      var notificationMessage = document.getElementById('notificationMessage').value;
+
+      if (notificationTime && notificationMessage) {
+        // Parse the selected time
+        var selectedTime = new Date();
+        var timeArray = notificationTime.split(':');
+        selectedTime.setHours(parseInt(timeArray[0], 10));
+        selectedTime.setMinutes(parseInt(timeArray[1], 10));
+        selectedTime.setSeconds(0);
+
+        // Get the current time
+        var currentTime = new Date();
+
+        // Calculate the time difference
+        var timeDifference = selectedTime - currentTime;
+
+        // Check if the selected time is in the future
+        if (timeDifference > 0) {
+          // Set a timeout to display the notification
+          setTimeout(function () {
+            displayNotification(notificationMessage);
+          }, timeDifference);
+        } else {
+          alert('Please select a future time for the notification.');
+        }
+      } else {
+        alert('Please enter both the notification time and message.');
+      }
+    }
+
+    function displayNotification(message) {
+      // Check if the browser supports notifications
+      if ('Notification' in window) {
+        // Request permission to show notifications
+        Notification.requestPermission().then(function (permission) {
+          if (permission === 'granted') {
+            // Create and show the notification
+            var notification = new Notification('Notification', {
+              body: message
+            });
+
+            // Close the notification after 5 seconds
+            setTimeout(function () {
+              notification.close();
+            }, 5000);
+          } else {
+            alert('Permission to show notifications denied.');
+          }
+        });
+      } else {
+        alert('Your browser does not support notifications.');
+      }
+    }
+  </script>
+
+</body>
+</html>
