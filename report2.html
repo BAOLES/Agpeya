@@ -1,0 +1,114 @@
+<div id="contentToExport">
+  <script src="script1.js" defer></script>
+  <script src="script2.js" defer></script>
+  <script src="script3.js" defer></script>
+  <script src="script4.js" defer></script>
+  <script src="scriptdayex.js" defer></script>
+
+    <div id="dayCell"></div>
+    <div class="sub-container">       
+      <a>Morning Prayer</a>
+      <div class="progress-circle1" id="progressCircle1"></div>
+    </div>
+    <div class="sub-container">       
+      <a>Evening Prayer</a>
+      <div class="progress-circle2" id="progressCircle2"></div>
+    </div>
+    <div class="sub-container">       
+      <a>Night Prayer</a>
+      <div class="progress-circle3" id="progressCircle3"></div>
+    </div>
+    <div class="sub-container">       
+      <a>Midnight Prayer</a>
+      <div class="progress-circle4" id="progressCircle4"></div>
+    </div>
+    <button onclick="selectAndCopy()">Select and Copy HTML</button>
+  </div>
+  
+<script>
+  function updatePrayers() {
+    // Get the current date
+    var currentDate = new Date();
+
+    // Check if it's after 2 am
+    if (currentDate.getHours() >= 2) {
+      // Update the day, date, month, and year
+      var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      var dayName = days[currentDate.getDay()];
+      var dateNumber = currentDate.getDate();
+      var month = currentDate.toLocaleString('default', { month: 'long' });
+      var year = currentDate.getFullYear();
+      
+      document.getElementById('dayCell').innerText = dayName + ', ' + month + ' ' + dateNumber + ', ' + year;
+
+      // Update the prayers with new variables
+      document.getElementById('progressCircle1').innerText = getRandomPercentage() + '% - Morning Prayer';
+      document.getElementById('progressCircle2').innerText = getRandomPercentage() + '% - Evening Prayer';
+      document.getElementById('progressCircle3').innerText = getRandomPercentage() + '% - Night Prayer';
+      document.getElementById('progressCircle4').innerText = getRandomPercentage() + '% - Midnight Prayer';
+
+      // Store the information in local storage with a timestamp
+      var prayerInfo = {
+        dayName: dayName,
+        dateNumber: dateNumber,
+        month: month,
+        year: year,
+        progressCircle1: document.getElementById('progressCircle1').innerText,
+        progressCircle2: document.getElementById('progressCircle2').innerText,
+        progressCircle3: document.getElementById('progressCircle3').innerText,
+        progressCircle4: document.getElementById('progressCircle4').innerText,
+        timestamp: currentDate.getTime() // Timestamp in milliseconds
+      };
+
+      localStorage.setItem('prayerInfo', JSON.stringify(prayerInfo));
+    }
+  }
+
+  // Function to generate a random percentage (for demonstration purposes)
+  function getRandomPercentage() {
+    return Math.floor(Math.random() * 100);
+  }
+
+  // Function to select and copy the HTML content to the clipboard
+  function selectAndCopy() {
+    var contentToExport = document.getElementById('contentToExport');
+    var range = document.createRange();
+    range.selectNode(contentToExport);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    try {
+      // Copy the selected content
+      document.execCommand('copy');
+      alert('HTML content copied! You can now paste it to share.');
+    } catch (error) {
+      console.error('Unable to copy HTML content', error);
+      alert('Copy failed. Please try again.');
+    }
+
+    // Clear the selection
+    window.getSelection().removeAllRanges();
+  }
+
+  // Check if stored information is older than 7 days and clear it
+  function checkAndClearOldData() {
+    var storedInfo = localStorage.getItem('prayerInfo');
+    if (storedInfo) {
+      var parsedInfo = JSON.parse(storedInfo);
+      var timestamp = parsedInfo.timestamp;
+      var currentTimestamp = new Date().getTime();
+      var sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+
+      if (currentTimestamp - timestamp > sevenDaysInMillis) {
+        // Clear the stored information
+        localStorage.removeItem('prayerInfo');
+      }
+    }
+  }
+
+  // Call the updatePrayers function
+  updatePrayers();
+
+  // Check and clear old data when the page loads
+  checkAndClearOldData();
+</script>

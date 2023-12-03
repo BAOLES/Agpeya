@@ -1,47 +1,46 @@
-// script.js
-function exportToExcelAndCSV() {
+function exportToTextFile() {
   // Get the content you want to export
   var contentTable = document.getElementById('exportTable');
 
-  // Initialize empty strings for the Excel and CSV content
-  var excelContent = "<table><tr><th>Day</th><th>Prayer</th><th>Progress</th></tr>";
-  var csvContent = "Day,Prayer,Progress\n";
+  // Initialize empty strings for the text content
+  var textContent = "";
+
+  // Array to store custom names for prayers
+  var prayerNames = ["", "Morning Prayers", "Evening Prayers", "Night Prayers", "Midnight Prayer"];
 
   // Loop through each progress circle and extract data
   for (var i = 1; i <= 4; i++) {
     var progressCircleId = 'progressCircle' + i;
     var progressValue = document.getElementById(progressCircleId).textContent;
-  // Get the current date
-  var currentDate = new Date();
-    // Append data to the Excel and CSV content
-    excelContent += `<tr><td>${currentDate.toLocaleDateString()}</td><td>Script ${i}</td><td>${progressValue}</td></tr>`;
-    csvContent += `${currentDate.toLocaleDateString()},Prayers ${i},${progressValue}\n`;
+    // Get the current date
+    var currentDate = new Date();
+
+    // Get the custom name for the current prayer
+    var prayerName = prayerNames[i];
+
+    // Append data to the text content
+    textContent += `${currentDate.toLocaleDateString()},${prayerName},${progressValue}\n`;
   }
 
-  // Close the Excel table tag
-  excelContent += "</table>";
+  // Extract the number of the Monday for the week
+  var firstDay = new Date();
+  firstDay.setDate(firstDay.getDate() - firstDay.getDay() + 1);
+  var firstDayNumber = firstDay.getDate();
 
-  // Create Blobs for Excel and CSV
-  var excelBlob = new Blob([excelContent], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  var csvBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  // Create a Blob with the text content
+  var textBlob = new Blob([textContent], { type: 'text/plain;charset=utf-8;' });
 
-  // Create links for Excel and CSV and set attributes
-  var excelLink = document.createElement('a');
-  excelLink.href = window.URL.createObjectURL(excelBlob);
-  excelLink.download = 'exported_data.xlsx';
+  // Create a link element to trigger the download
+  var downloadLink = document.createElement('a');
+  downloadLink.href = URL.createObjectURL(textBlob);
+  
+  // Set the download attribute with the desired filename
+  downloadLink.download = `weekly_prayer_data-nov${firstDayNumber}.txt`;
 
-  var csvLink = document.createElement('a');
-  csvLink.href = window.URL.createObjectURL(csvBlob);
-  csvLink.download = 'exported_data.csv';
+  // Append the link to the body and trigger the click event
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
 
-  // Append the links to the body and trigger click events
-  document.body.appendChild(excelLink);
-  document.body.appendChild(csvLink);
-
-  excelLink.click();
-  csvLink.click();
-
-  // Remove the links from the DOM
-  document.body.removeChild(excelLink);
-  document.body.removeChild(csvLink);
+  // Remove the link from the DOM
+  document.body.removeChild(downloadLink);
 }

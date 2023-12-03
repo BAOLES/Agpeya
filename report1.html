@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Export to Excel and CSV</title>
   <script src="script1.js" defer></script>
@@ -13,17 +14,60 @@
 
 </head>
 <body>
-
-  <div id="contentToExport">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script1.js" defer></script>
+  <script src="script2.js" defer></script>
+  <script src="script3.js" defer></script>
+  <script src="script4.js" defer></script>
+  <script src="scriptdayex.js" defer></script>
     <div id="dayCell"></div>
     <!-- Your content goes here -->
-    <div id="progressCircle1">50%</div>
-    <div id="progressCircle2">75%</div>
-    <div id="progressCircle3">50%</div>
-    <div id="progressCircle4">75%</div>
 
 
-  <button onclick="exportToExcelAndCSV()">Export to Excel and CSV</button>
+      <div class="sub-container">       
+
+              <a> Morning Prayer</a>
+              <div class="progress-circle1" id="progressCircle1"></div>
+              <script type="text/javascript" src="script1.js"></script>
+
+      </div>
+      <div class="sub-container">       
+
+              <a>Evening Prayer</a>
+              <div class="progress-circle2" id="progressCircle2"></div>
+              <script type="text/javascript" src="script2.js"></script>
+
+      </div>
+      <div class="sub-container">       
+              <a>Night Prayer</a>
+              <div class="progress-circle3" id="progressCircle3"></div>
+              <script type="text/javascript" src="script3.js"></script>
+
+      </div>
+      <div class="sub-container">       
+              <a>Midnight Prayer</a>
+              <div class="progress-circle4" id="progressCircle4"></div>
+              <script type="text/javascript" src="script4.js"></script>
+
+      </div>       
+
+    <script>
+      
+      // Get the current date
+      var currentDate = new Date();
+    
+      // Get the day name
+      var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      var dayName = days[currentDate.getDay()];
+    
+      // Format the date as "Day, Month Date, Year"
+      var formattedDate = dayName + ', ' + (currentDate.getMonth() + 1) + '/' + currentDate.getDate() + '/' + currentDate.getFullYear();
+    
+      // Insert the formatted date into the "dayCell" element
+      document.getElementById('dayCell').innerText = formattedDate;
+      
+    </script>
+  <button onclick="exportToTextFile()">Export to Excel and CSV</button>
 
 </body>
 </html>
