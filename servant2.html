@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #notification {
+      display: none;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="notification"></div>
+
+<script>
+  function showNotification(message) {
+    var notification = document.getElementById('notification');
+    notification.innerHTML = message;
+    notification.style.display = 'block';
+    setTimeout(function() {
+      notification.style.display = 'none';
+    }, 5000); // Hide the notification after 5 seconds
+  }
+
+  function checkAndNotify() {
+    var currentDate = new Date();
+    var dayOfWeek = currentDate.getDay();
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+
+    // Monday at 7pm
+    if (dayOfWeek === 1 && hours === 17 && minutes === 21) {
+      showNotification("Did you read the lesson for next week?");
+    }
+
+    // Wednesday at 1:05pm
+    if (dayOfWeek === 3 && hours === 13 && minutes === 5) {
+      showNotification("Did you prepare the lesson for your service?");
+    }
+
+    // Friday at 7pm
+    if (dayOfWeek === 5 && hours === 19 && minutes === 0) {
+      showNotification("Did you review the lesson before the service started?");
+    }
+  }
+
+  // Check and notify every minute
+  setInterval(checkAndNotify, 60000);
+</script>
+
+</body>
+</html>

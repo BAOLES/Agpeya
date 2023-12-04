@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminder Notifications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #notification-container {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+  <link rel="stylesheet" href="styles.css">
+    <div>
+      <br>
+        <label>
+            <input type="checkbox" id="mondayCheckbox" checked> Monday 7pm "Did you read the lesson for next week?"
+        </label>
+        
+      </br>
+      <br>
+        <label>
+            <input type="checkbox" id="wednesdayCheckbox" checked> Wednesday 1pm "Did you prepare the lesson for your service?"
+        </label>
+      </br>
+        <br>
+        <label>
+            <input type="checkbox" id="fridayCheckbox" checked> Friday 7pm "Did you review the lesson before the service started?"
+        </label>
+      </br>
+      <br>
+      <a href="index.html" class="Home" >
+        <img src="amsm.png" alt="Home">
+      </a>
+    </br>
+    </div>
+
+    <div id="notification-container">
+        <p id="notification-message"></p>
+        <button onclick="closeNotification()">Close</button>
+    </div>
+
+    <script>
+        function showNotification(message) {
+            const notificationContainer = document.getElementById('notification-container');
+            const notificationMessage = document.getElementById('notification-message');
+
+            notificationMessage.textContent = message;
+            notificationContainer.style.display = 'block';
+
+            setTimeout(() => {
+                closeNotification();
+            }, 5000); // Close the notification after 5 seconds
+        }
+
+        function closeNotification() {
+            const notificationContainer = document.getElementById('notification-container');
+            notificationContainer.style.display = 'none';
+        }
+
+        function checkAndShowNotification() {
+            const currentDate = new Date();
+            const dayOfWeek = currentDate.getDay();
+            const hours = currentDate.getHours();
+            const minutes = currentDate.getMinutes();
+
+            if (
+                ((dayOfWeek === 1 && hours === 19 && minutes === 0) && document.getElementById('mondayCheckbox').checked) ||
+                ((dayOfWeek === 3 && hours === 13 && minutes === 5) && document.getElementById('wednesdayCheckbox').checked) ||
+                ((dayOfWeek === 5 && hours === 19 && minutes === 0) && document.getElementById('fridayCheckbox').checked)
+            ) {
+                showNotification(getNotificationMessage(dayOfWeek));
+            }
+        }
+
+        function getNotificationMessage(dayOfWeek) {
+            switch (dayOfWeek) {
+                case 1:
+                    return "Did you read the lesson for next week?";
+                case 3:
+                    return "Did you prepare the lesson for your service?";
+                case 5:
+                    return "Did you review the lesson before the service started?";
+                default:
+                    return "";
+            }
+        }
+
+        // Check for notifications every minute
+        setInterval(checkAndShowNotification, 60000);
+    </script>
+</body>
+</html>

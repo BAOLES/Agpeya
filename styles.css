@@ -16,7 +16,7 @@
     align-items: center;
     margin: 18px;
     padding: 18px;
-    height: 600px;
+    height: 650px;
     width: 330px;
     color: #fdfafa;
     font-size: 16px;
@@ -561,7 +561,7 @@ body {
 }
 
 .mainHome img {
-  max-width: 60px; /* Adjust the maximum width as needed */
-  max-height: 60px; /* Adjust the maximum height as needed */
+  max-width: 135px; /* Adjust the maximum width as needed */
+  max-height: 135px; /* Adjust the maximum height as needed */
   position:center;
 }
