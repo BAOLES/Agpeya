@@ -561,7 +561,13 @@ body {
 }
 
 .mainHome img {
-  max-width: 135px; /* Adjust the maximum width as needed */
-  max-height: 135px; /* Adjust the maximum height as needed */
+  max-width: 40px; /* Adjust the maximum width as needed */
+  max-height: 40px; /* Adjust the maximum height as needed */
+  position:center;
+}
+
+.alert img {
+  max-width: 40px; /* Adjust the maximum width as needed */
+  max-height: 40px; /* Adjust the maximum height as needed */
   position:center;
 }
