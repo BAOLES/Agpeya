@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Notifications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #notification-container {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        label {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>Morning:
+            <input type="time" id="morningTime" value="08:00">
+        </label>
+
+        <label>Evening:
+            <input type="time" id="eveningTime" value="13:00">
+        </label>
+
+        <label>Night:
+            <input type="time" id="nightTime" value="19:00">
+        </label>
+    </div>
+
+    <div id="notification-container">
+        <p id="notification-message"></p>
+        <button onclick="closeNotification()">Close</button>
+    </div>
+
+    <script>
+        function showNotification(message) {
+            const notificationContainer = document.getElementById('notification-container');
+            const notificationMessage = document.getElementById('notification-message');
+
+            notificationMessage.textContent = message;
+            notificationContainer.style.display = 'block';
+
+            // Play sound
+            const audio = new Audio('notification-sound.mp3'); // Replace 'notification-sound.mp3' with the path to your sound file
+            audio.play();
+
+            setTimeout(() => {
+                closeNotification();
+            }, 5000); // Close the notification after 5 seconds
+        }
+
+        function closeNotification() {
+            const notificationContainer = document.getElementById('notification-container');
+            notificationContainer.style.display = 'none';
+        }
+
+        function checkAndShowNotification() {
+            const currentDate = new Date();
+            const morningTime = document.getElementById('morningTime').value;
+            const eveningTime = document.getElementById('eveningTime').value;
+            const nightTime = document.getElementById('nightTime').value;
+
+            const morningTriggerTime = new Date(currentDate.toDateString() + ' ' + morningTime);
+            const eveningTriggerTime = new Date(currentDate.toDateString() + ' ' + eveningTime);
+            const nightTriggerTime = new Date(currentDate.toDateString() + ' ' + nightTime);
+
+            if (currentDate >= morningTriggerTime && currentDate < eveningTriggerTime) {
+                showNotification("Good morning!");
+            } else if (currentDate >= eveningTriggerTime && currentDate < nightTriggerTime) {
+                showNotification("Good evening!");
+            } else if (currentDate >= nightTriggerTime || currentDate < morningTriggerTime) {
+                showNotification("Good night!");
+            }
+        }
+
+        // Check for notifications every minute
+        setInterval(checkAndShowNotification, 60000);
+    </script>
+</body>
+</html>

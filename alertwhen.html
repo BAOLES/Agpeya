@@ -1,164 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prayer Notification Settings</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Notification Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
 
-    input {
-      margin-bottom: 10px;
-    }
+        input {
+            margin-bottom: 10px;
+        }
 
-    button {
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
 
-    .Home img {
-      max-width: 40px; /* Adjust the maximum width as needed */
-      max-height: 40px; /* Adjust the maximum height as needed */
-      position:relative;
-      margin: 1cqh;
-    }
-  </style>
+        .Home img {
+            max-width: 40px;
+            max-height: 40px;
+            position: relative;
+            margin: 1cqh;
+        }
+    </style>
 </head>
+
 <body>
 
-  <h2>Prayer Notification Settings</h2>
+    <h2>Prayer Notification Settings</h2>
 
-  <h3>Morning Prayers</h3>
-  <label for="morningTime">Select notification time:</label>
-  <select id="morningTime">
-    <option value="5:00">5:00 AM</option>
-    <option value="6:00">6:00 AM</option>
-    <option value="7:00">7:00 AM</option>
-  </select>
-  <br>
-  <label for="morningSound">Enable sound notification:</label>
-  <input type="checkbox" id="morningSound">
-  <br>
+    <h3>Morning Prayers</h3>
+    <label for="morningTime">Select notification time:</label>
+    <select id="morningTime">
+        <option value="5:00">5:00 AM</option>
+        <option value="6:00">6:00 AM</option>
+        <option value="7:00">7:00 AM</option>
+    </select>
+    <br>
+    <label for="morningSound">Enable sound notification:</label>
+    <input type="checkbox" id="morningSound">
+    <br>
 
-  <h3>Evening Prayers</h3>
-  <label for="eveningTime">Select notification time:</label>
-  <select id="eveningTime">
-    <option value="17:00">5:00 PM</option>
-    <option value="18:00">6:00 PM</option>
-    <option value="19:00">7:00 PM</option>
-  </select>
-  <br>
-  <label for="eveningSound">Enable sound notification:</label>
-  <input type="checkbox" id="eveningSound">
-  <br>
+    <h3>Evening Prayers</h3>
+    <label for="eveningTime">Select notification time:</label>
+    <select id="eveningTime">
+        <option value="17:00">5:00 PM</option>
+        <option value="18:00">6:00 PM</option>
+        <option value="19:00">7:00 PM</option>
+    </select>
+    <br>
+    <label for="eveningSound">Enable sound notification:</label>
+    <input type="checkbox" id="eveningSound">
+    <br>
 
-  <h3>Night Prayers</h3>
-  <label for="nightTime">Select notification time:</label>
-  <select id="nightTime">
-    <option value="20:00">8:00 PM</option>
-    <option value="21:00">9:00 PM</option>
-    <option value="22:00">10:00 PM</option>
-  </select>
-  <br>
-  <label for="nightSound">Enable sound notification:</label>
-  <input type="checkbox" id="nightSound">
-  <br>
+    <h3>Night Prayers</h3>
+    <label for="nightTime">Select notification time:</label>
+    <select id="nightTime">
+        <option value="20:00">8:00 PM</option>
+        <option value="21:00">9:00 PM</option>
+        <option value="22:00">10:00 PM</option>
+    </select>
+    <br>
+    <label for="nightSound">Enable sound notification:</label>
+    <input type="checkbox" id="nightSound">
+    <br>
 
-  <h3>Midnight Prayers</h3>
-  <label for="midnightTime">Select notification time:</label>
-  <select id="midnightTime">
-    <option value="23:00">11:00 PM</option>
-    <option value="0:00">12:00 AM</option>
-    <option value="1:00">1:00 AM</option>
-  </select>
-  <br>
-  <label for="midnightSound">Enable sound notification:</label>
-  <input type="checkbox" id="midnightSound">
-  <br>
+    <h3>Midnight Prayers</h3>
+    <label for="midnightTime">Select notification time:</label>
+    <select id="midnightTime">
+        <option value="23:00">11:00 PM</option>
+        <option value="0:00">12:00 AM</option>
+        <option value="1:00">1:00 AM</option>
+    </select>
+    <br>
+    <label for="midnightSound">Enable sound notification:</label>
+    <input type="checkbox" id="midnightSound">
+    <br>
 
-  <button onclick="setNotifications()">Set Notifications</button>
-  
-  <br>
-  <a href="index.html" class="Home" >
-    <img src="amsm.png" alt="Home">
-  </a>
-</br>
+    <button onclick="setNotifications()">Set Notifications</button>
+    <button onclick="testSound()">Test Sound</button>
+    <br>
+    <a href="index.html" class="Home">
+        <img src="amsm.png" alt="Home">
+    </a>
+    <br>
 
-  <script>
-    function setNotifications() {
-      function scheduleNotification(time, message, soundEnabled) {
-        var selectedTime = new Date();
-        var timeArray = time.split(':');
-        selectedTime.setHours(parseInt(timeArray[0], 10));
-        selectedTime.setMinutes(parseInt(timeArray[1], 10));
-        selectedTime.setSeconds(0);
-
-        var currentTime = new Date();
-        var timeDifference = selectedTime - currentTime;
-
-        if (timeDifference > 0) {
-          setTimeout(function () {
-            displayNotification(message, soundEnabled);
-          }, timeDifference);
+    <script>
+        // Function to get notification settings from local storage
+        function getNotificationSettings() {
+            const storedSettings = localStorage.getItem('prayerNotificationSettings');
+            return storedSettings ? JSON.parse(storedSettings) : {};
         }
-      }
 
-      function displayNotification(message, soundEnabled) {
-        if ('Notification' in window) {
-          Notification.requestPermission().then(function (permission) {
-            if (permission === 'granted') {
-              var options = {
-                body: message
-              };
+        // Function to set notification settings in local storage
+        function setNotificationSettings(settings) {
+            localStorage.setItem('prayerNotificationSettings', JSON.stringify(settings));
+        }
 
-              if (soundEnabled) {
-                options.sound = 'notification-sound.mp3'; // You can replace this with the path to your sound file
-              }
+        function setNotifications() {
+            const settings = {
+                morningTime: document.getElementById('morningTime').value,
+                morningSound: document.getElementById('morningSound').checked,
+                eveningTime: document.getElementById('eveningTime').value,
+                eveningSound: document.getElementById('eveningSound').checked,
+                nightTime: document.getElementById('nightTime').value,
+                nightSound: document.getElementById('nightSound').checked,
+                midnightTime: document.getElementById('midnightTime').value,
+                midnightSound: document.getElementById('midnightSound').checked,
+            };
 
-              var notification = new Notification('Prayer Notification', options);
+            setNotificationSettings(settings);
 
-              setTimeout(function () {
-                notification.close();
-              }, 5000); // Close the notification after 5 seconds
-            } else {
-              alert('Permission to show notifications denied.');
+            function scheduleNotification(time, message, soundEnabled) {
+                const selectedTime = new Date();
+                const timeArray = time.split(':');
+                selectedTime.setHours(parseInt(timeArray[0], 10));
+                selectedTime.setMinutes(parseInt(timeArray[1], 10));
+                selectedTime.setSeconds(0);
+
+                const currentTime = new Date();
+                const timeDifference = selectedTime - currentTime;
+
+                if (timeDifference > 0) {
+                    setTimeout(function () {
+                        displayNotification(message, soundEnabled);
+                    }, timeDifference);
+                }
             }
-          });
-        } else {
-          alert('Your browser does not support notifications.');
+
+            function displayNotification(message, soundEnabled) {
+                if ('Notification' in window) {
+                    Notification.requestPermission().then(function (permission) {
+                        if (permission === 'granted') {
+                            const options = {
+                                body: message,
+                            };
+
+                            if (soundEnabled) {
+                                options.sound = 'CopticBell.mp3'; // You can replace this with the path to your sound file
+                            }
+
+                            const notification = new Notification('Prayer Notification', options);
+
+                            setTimeout(function () {
+                                notification.close();
+                            }, 5000); // Close the notification after 5 seconds
+                        } else {
+                            alert('Permission to show notifications denied.');
+                        }
+                    });
+                } else {
+                    alert('Your browser does not support notifications.');
+                }
+            }
+
+            scheduleNotification(settings.morningTime, 'Morning Prayers', settings.morningSound);
+            scheduleNotification(settings.eveningTime, 'Evening Prayers', settings.eveningSound);
+            scheduleNotification(settings.nightTime, 'Night Prayers', settings.nightSound);
+            scheduleNotification(settings.midnightTime, 'Midnight Prayers', settings.midnightSound);
+
+            alert('Notifications set successfully!');
         }
+
+        // On page load, check if there are stored settings and populate the form
+        document.addEventListener('DOMContentLoaded', function () {
+            const storedSettings = getNotificationSettings();
+            const timeFields = ['morningTime', 'eveningTime', 'nightTime', 'midnightTime'];
+            const soundFields = ['morningSound', 'eveningSound', 'nightSound', 'midnightSound'];
+
+            timeFields.forEach(function (field) {
+                if (storedSettings[field]) {
+                    document.getElementById(field).value = storedSettings[field];
+                }
+            });
+
+            soundFields.forEach(function (field) {
+                if (storedSettings[field]) {
+                    document.getElementById(field).checked = storedSettings[field];
+                }
+            });
+        });
+        function testSound() {
+          const audio = new Audio('CopticBell.mp3'); // Replace 'CopticBell.mp3' with the path to your sound file
+          audio.play();
       }
-
-      var morningTime = document.getElementById('morningTime').value;
-      var morningSound = document.getElementById('morningSound').checked;
-      scheduleNotification(morningTime, 'Morning Prayers', morningSound);
-
-      var eveningTime = document.getElementById('eveningTime').value;
-      var eveningSound = document.getElementById('eveningSound').checked;
-      scheduleNotification(eveningTime, 'Evening Prayers', eveningSound);
-
-      var nightTime = document.getElementById('nightTime').value;
-      var nightSound = document.getElementById('nightSound').checked;
-      scheduleNotification(nightTime, 'Night Prayers', nightSound);
-
-      var midnightTime = document.getElementById('midnightTime').value;
-      var midnightSound = document.getElementById('midnightSound').checked;
-      scheduleNotification(midnightTime, 'Midnight Prayers', midnightSound);
-
-      alert('Notifications set successfully!');
-    }
-  </script>
+    </script>
 
 </body>
+<!--This code uses the localStorage API to store and retrieve the prayer notification settings. On page load, it checks for stored settings and populates the form accordingly. 
+The user's selections are saved in local storage, 
+and the notifications are set based on those stored settings when the "Set Notifications" 
+button is clicked. The settings will persist until the user changes them. -->
 </html>
