@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Bible</title>
+</head>
+<body>
+    <br>
+    <a href="index.html" class="read" >
+      <img src="readwzme.webp" alt="read">
+    </a>
+  </br>
+  <h1>Thank you for talking to me Dear .. Jesus .</h1>
+<p class="subtitle">See you tomorrow!</p>
+
+<!--<a href="https://youtube.com/kevinpowell" id="yt-link">See how I created this over on YT</a>-->
+
+<div class="progress-circle5" id="progressCircle5"></div>
+<a href="index.html" class="progress-link5" data-increment="100"> </a>
+<script src="script5.js"></script>  
+
+  <a href="index.html" class="Home">
+      <img src="amsm.png" alt="Home">
+  </a>
+
+</body>
+<style>
+    :root {
+  --bg-color: hsl(49 37% 94%);
+  --typewriterSpeed: 8s;
+  --typewriterCharacters: 24;
+}
+
+body {
+  margin: 0;
+  font-family: "Source Sans Pro", sans-serif;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background: var(--bg-color);
+}
+
+h1 {
+  font-size: clamp(1rem, 1vw + 1rem, 1rem);
+  position: relative;
+  font-family: "Source Code Pro", monospace;
+  position: relative;
+  width: max-content;
+}
+
+h1::before,
+h1::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+h1::before {
+  background: var(--bg-color);
+  animation: typewriter var(--typewriterSpeed)
+    steps(var(--typewriterCharacters)) 1s forwards;
+}
+
+h1::after {
+  width: 0.125em;
+  background: black;
+  animation: typewriter var(--typewriterSpeed)
+      steps(var(--typewriterCharacters)) 1s forwards,
+    blink 750ms steps(var(--typewriterCharacters)) infinite;
+}
+
+.subtitle {
+  color: hsl(0 0% 0% / 0.7);
+  font-size: 2rem;
+  font-weight: 400;
+  opacity: 0;
+  transform: translateY(3rem);
+  animation: fadeInUp 2s ease calc(var(--typewriterSpeed) + 2s) forwards;
+}
+
+@keyframes typewriter {
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes blink {
+  to {
+    background: transparent;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#yt-link {
+  position: absolute;
+  bottom: 2em;
+  width: 100%;
+  color: hsl(0 0 0 / 0.7);
+
+  &:hover,
+  &:focus {
+    color: teal;
+  }
+}
+
+
+</style>
+</html>
